@@ -9,7 +9,7 @@ public class General extends Ficha {
     }
 
     @Override
-    public boolean mover(int filaInicial, int columnaInicial, int filaFinal, int columnaFinal) {
+    public boolean mover(int filaInicial, int columnaInicial, int filaFinal, int columnaFinal, Ficha[][] tablero) {
         int deltaFila = Math.abs(filaFinal - filaInicial);
         int deltaColumna = Math.abs(columnaFinal - columnaInicial);
 
@@ -18,7 +18,9 @@ public class General extends Ficha {
         }
 
         if ((deltaFila == 1 && deltaColumna == 0) || (deltaFila == 0 && deltaColumna == 1)) {
-            return true;
+           
+            return tablero[filaFinal][columnaFinal] == null || 
+                   !tablero[filaFinal][columnaFinal].getPropietario().equals(this.getPropietario());
         }
 
         return false;
@@ -45,6 +47,7 @@ public class General extends Ficha {
         for (int[] mov : posiblesMovimientos) {
             int filaPosible = mov[0];
             int columnaPosible = mov[1];
+            
             if (filaPosible >= 0 && filaPosible < tablero.length && columnaPosible >= 0 && columnaPosible < tablero[0].length) {
                 if (dentroDelPalacio(filaPosible, columnaPosible) &&
                     (tablero[filaPosible][columnaPosible] == null || 
@@ -73,13 +76,13 @@ public class General extends Ficha {
         }
 
         if (filaRey1 != -1 && filaRey2 != -1) {
-           
+            
             for (int fila = Math.min(filaRey1, filaRey2) + 1; fila < Math.max(filaRey1, filaRey2); fila++) {
                 if (tablero[fila][columna] != null) {
                     return false; 
                 }
             }
-            return true; 
+            return true;
         }
 
         return false; 

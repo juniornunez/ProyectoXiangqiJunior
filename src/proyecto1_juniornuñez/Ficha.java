@@ -15,7 +15,7 @@ public abstract class Ficha {
         return propietario;
     }
 
-    public abstract boolean mover(int filaInicial, int columnaInicial, int filaFinal, int columnaFinal);
+   public abstract boolean mover(int filaInicial, int columnaInicial, int filaFinal, int columnaFinal, Ficha[][] tablero);
 
     public abstract String getNombre();
 

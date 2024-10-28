@@ -228,9 +228,10 @@ public class TableroAjedrezChino extends JFrame {
             columnaSeleccionada = columna;
             resaltarMovimientosPosibles(fila, columna);
         }
+        
     } else {
         Ficha fichaSeleccionada = tablero[filaSeleccionada][columnaSeleccionada];
-        if (fichaSeleccionada.mover(filaSeleccionada, columnaSeleccionada, fila, columna)) {
+        if (fichaSeleccionada.mover(filaSeleccionada, columnaSeleccionada, fila, columna, tablero)) {
             
             if (tablero[fila][columna] == null || !tablero[fila][columna].getPropietario().equals(fichaSeleccionada.getPropietario())) {
                
