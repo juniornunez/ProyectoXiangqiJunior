@@ -4,57 +4,58 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Elefante extends Ficha {
+
     public Elefante(String propietario) {
         super(propietario);
     }
 
     @Override
-    public boolean mover(int filaInicial, int columnaInicial, int filaFinal, int columnaFinal, Ficha[][] tablero) {
-        int deltaFila = Math.abs(filaFinal - filaInicial);
-        int deltaColumna = Math.abs(columnaFinal - columnaInicial);
+    public boolean mover(int filaOrigen, int columnaOrigen, int filaDestino, int columnaDestino, Ficha[][] tablero) {
         
-        if (deltaFila == 2 && deltaColumna == 2) {
+        if ((filaOrigen < 5 && filaDestino >= 5) || (filaOrigen >= 5 && filaDestino < 5)) {
             
-            int filaIntermedia = (filaInicial + filaFinal) / 2;
-            int columnaIntermedia = (columnaInicial + columnaFinal) / 2;
-            
-            return tablero[filaIntermedia][columnaIntermedia] == null && 
-                   (tablero[filaFinal][columnaFinal] == null || 
-                    !tablero[filaFinal][columnaFinal].getPropietario().equals(this.getPropietario()));
+            return false;
         }
-        return false;
-    }
 
-    @Override
-    public String getNombre() {
-        return "Elefante";
+        
+        int diffFila = Math.abs(filaDestino - filaOrigen);
+        int diffColumna = Math.abs(columnaDestino - columnaOrigen);
+        
+      
+        if (diffFila == 2 && diffColumna == 2) {
+           
+            if (tablero[filaDestino][columnaDestino] == null ||
+                !tablero[filaDestino][columnaDestino].getPropietario().equals(this.getPropietario())) {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     @Override
     public List<int[]> obtenerMovimientosPosibles(int fila, int columna, Ficha[][] tablero) {
         List<int[]> movimientos = new ArrayList<>();
-        int[][] posiblesMovimientos = {
-            {fila - 2, columna - 2}, {fila - 2, columna + 2},
-            {fila + 2, columna - 2}, {fila + 2, columna + 2}
-        };
-
-        for (int[] mov : posiblesMovimientos) {
-            int filaPosible = mov[0];
-            int columnaPosible = mov[1];
-            int filaIntermedia = (fila + filaPosible) / 2;
-            int columnaIntermedia = (columna + columnaPosible) / 2;
-
-            // Verificar si la posición posible está dentro del tablero y si no hay piezas bloqueando el camino
-            if (filaPosible >= 0 && filaPosible < tablero.length && columnaPosible >= 0 && columnaPosible < tablero[0].length) {
-                if (tablero[filaPosible][columnaPosible] == null && tablero[filaIntermedia][columnaIntermedia] == null) {
-                    movimientos.add(new int[]{filaPosible, columnaPosible});
-                } else if (tablero[filaPosible][columnaPosible] != null && 
-                           !tablero[filaPosible][columnaPosible].getPropietario().equals(this.getPropietario())) {
-                    movimientos.add(new int[]{filaPosible, columnaPosible}); // Permitir captura
+        
+        int[][] direcciones = {{2, 2}, {2, -2}, {-2, 2}, {-2, -2}};
+        for (int[] dir : direcciones) {
+            int nuevaFila = fila + dir[0];
+            int nuevaColumna = columna + dir[1];
+            if (nuevaFila >= 0 && nuevaFila < tablero.length && nuevaColumna >= 0 && nuevaColumna < tablero[0].length) {
+               
+                if ((fila < 5 && nuevaFila < 5) || (fila >= 5 && nuevaFila >= 5)) {
+                    if (tablero[nuevaFila][nuevaColumna] == null || 
+                        !tablero[nuevaFila][nuevaColumna].getPropietario().equals(this.getPropietario())) {
+                        movimientos.add(new int[]{nuevaFila, nuevaColumna});
+                    }
                 }
             }
         }
-
         return movimientos;
+    }
+
+    @Override
+    public String getNombre() {
+        return "Elefante";
     }
 }

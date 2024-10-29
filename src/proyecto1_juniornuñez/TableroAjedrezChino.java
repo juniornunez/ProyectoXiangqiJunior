@@ -1,3 +1,5 @@
+
+
 package proyecto1_juniornuñez;
 
 import javax.swing.*;
@@ -44,6 +46,7 @@ public class TableroAjedrezChino extends JFrame {
     public DatosUser getOponente() {
         return oponente;
     }
+    
 
     private void initComponents() {
         setTitle("Tablero de Ajedrez Chino");

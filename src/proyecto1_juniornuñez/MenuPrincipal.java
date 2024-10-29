@@ -227,11 +227,10 @@ private void mostrarLogPartidos() {
 
     private void nuevapartida_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevapartida_btnActionPerformed
         
-        JDialog dialogoJugadores = new JDialog(this, "Seleccionar Jugador", true);
+         JDialog dialogoJugadores = new JDialog(this, "Seleccionar Jugador", true);
         dialogoJugadores.setSize(300, 200);
         dialogoJugadores.setLocationRelativeTo(this);
 
-        
         DefaultListModel<String> modeloLista = new DefaultListModel<>();
         for (DatosUser usuario : listaUsuarios) {
             if (!usuario.getUser().equals(usuarioActual.getUser())) { 
@@ -239,43 +238,48 @@ private void mostrarLogPartidos() {
             }
         }
 
-       
         JList<String> listaJugadores = new JList<>(modeloLista);
         JScrollPane scrollPane = new JScrollPane(listaJugadores);
 
         JButton btnSeleccionar = new JButton("Seleccionar");
         btnSeleccionar.addActionListener(e -> {
-    String jugadorSeleccionado = listaJugadores.getSelectedValue();
-    if (jugadorSeleccionado != null) {
-        
-        DatosUser oponente = listaUsuarios.stream()
-            .filter(usuario -> usuario.getUser().equals(jugadorSeleccionado))
-            .findFirst()
-            .orElse(null);
-
-        if (oponente != null) {
-            JOptionPane.showMessageDialog(dialogoJugadores, "Has seleccionado: " + jugadorSeleccionado);
-
-            
-            TableroAjedrezChino tablero = new TableroAjedrezChino(listaUsuarios, usuarioActual, oponente);
-            tablero.setVisible(true);
-            dialogoJugadores.dispose();
-            dispose();
-        } else {
-            JOptionPane.showMessageDialog(dialogoJugadores, "No se encontró al jugador seleccionado.");
-        }
-    } else {
-        JOptionPane.showMessageDialog(dialogoJugadores, "Por favor, selecciona un jugador.");
-    }
-});
+            String jugadorSeleccionado = listaJugadores.getSelectedValue();
+            if (jugadorSeleccionado != null) {
+                DatosUser oponente = buscarUsuarioRecursivo(listaUsuarios, jugadorSeleccionado, 0);
+                if (oponente != null) {
+                    JOptionPane.showMessageDialog(dialogoJugadores, "Has seleccionado: " + jugadorSeleccionado);
+                    TableroAjedrezChino tablero = new TableroAjedrezChino(listaUsuarios, usuarioActual, oponente);
+                    tablero.setVisible(true);
+                    dialogoJugadores.dispose();
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(dialogoJugadores, "No se encontró al jugador seleccionado.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(dialogoJugadores, "Por favor, selecciona un jugador.");
+            }
+        });
 
         dialogoJugadores.setLayout(new BorderLayout());
         dialogoJugadores.add(scrollPane, BorderLayout.CENTER);
         dialogoJugadores.add(btnSeleccionar, BorderLayout.SOUTH);
 
         dialogoJugadores.setVisible(true);
+    
     }//GEN-LAST:event_nuevapartida_btnActionPerformed
-
+     //recursividad
+    private DatosUser buscarUsuarioRecursivo(ArrayList<DatosUser> usuarios, String nombre, int index) {
+    
+    if (index >= usuarios.size()) {
+        return null;
+    }
+    
+    if (usuarios.get(index).getUser().equals(nombre)) {
+        return usuarios.get(index);
+    }
+    
+    return buscarUsuarioRecursivo(usuarios, nombre, index + 1);
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
