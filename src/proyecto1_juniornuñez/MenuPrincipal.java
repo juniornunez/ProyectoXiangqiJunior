@@ -1,6 +1,7 @@
 package proyecto1_juniornuñez;
 
 import java.awt.BorderLayout;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import javax.swing.*;
@@ -10,11 +11,29 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private ArrayList<DatosUser> listaUsuarios;
     private DatosUser usuarioActual;
-
+    private ImageIcon fondoImagen;
+    
     public MenuPrincipal(ArrayList<DatosUser> listaUsuarios, DatosUser usuarioActual) {
-        initComponents();
+        
         this.listaUsuarios = listaUsuarios;
         this.usuarioActual = usuarioActual;
+        
+        fondoImagen = new ImageIcon(getClass().getResource("/images/fondo menuprincipal.jpg"));
+
+        JPanel panelFondo = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                
+                g.drawImage(fondoImagen.getImage(), 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+
+        setContentPane(panelFondo);
+        panelFondo.setLayout(new BorderLayout()); 
+        
+       initComponents();
+
         setLocationRelativeTo(null);
     }
 
@@ -213,7 +232,7 @@ private void mostrarLogPartidos() {
         menu.setVisible(true);
         dispose();
     });
-    // Mostrar el diálogo
+    
     dialogoLog.setVisible(true);
 
 

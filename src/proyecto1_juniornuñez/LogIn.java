@@ -1,21 +1,44 @@
 
 package proyecto1_juniornuñez;
 
+import java.awt.BorderLayout;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.ImageIcon;
 
 public class LogIn extends javax.swing.JFrame {
 
     
     private ArrayList<DatosUser> listaUsuarios;
-
+    private ImageIcon fondoImagen;
     
     public LogIn(ArrayList<DatosUser> listaUsuarios) {
-        initComponents();
+        
         this.listaUsuarios = listaUsuarios;
         
+           // Cargar la imagen de fondo desde el paquete "images"
+        fondoImagen = new ImageIcon(getClass().getResource("/images/fondo login.jpg"));
+
+        // Crear un JPanel personalizado para usar de fondo
+        JPanel panelFondo = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                // Dibujar la imagen de fondo en el panel
+                g.drawImage(fondoImagen.getImage(), 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+
+        // Configurar el panel como el contenido del JFrame
+        setContentPane(panelFondo);
+        panelFondo.setLayout(new BorderLayout()); // Usar BorderLayout para organizar los componentes
+        
+       initComponents();
+
         setLocationRelativeTo(null);
        
         ircrearcuenta.addMouseListener(new MouseAdapter() {
@@ -54,12 +77,20 @@ public class LogIn extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
+        login_lbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        login_lbl.setForeground(new java.awt.Color(255, 255, 255));
         login_lbl.setText("Bienvenido a Log In");
 
+        username_lbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        username_lbl.setForeground(new java.awt.Color(255, 255, 255));
         username_lbl.setText("Username:");
+        username_lbl.setToolTipText("");
 
+        contrasena_lbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        contrasena_lbl.setForeground(new java.awt.Color(255, 255, 255));
         contrasena_lbl.setText("Contraseña:");
 
+        ircrearcuenta.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         ircrearcuenta.setForeground(new java.awt.Color(51, 102, 255));
         ircrearcuenta.setText("CREAR CUENTA!");
 
@@ -82,50 +113,50 @@ public class LogIn extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 174, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(contrasena_lbl)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(contrasena_txtfield, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(username_lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(username_txtfield, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(163, 163, 163))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(Cerrarlogin, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25))))
+                .addGap(0, 458, Short.MAX_VALUE)
+                .addComponent(Cerrarlogin, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(211, 211, 211)
+                        .addGap(234, 234, 234)
                         .addComponent(login_lbl))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(218, 218, 218)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(loginentrar_btn)
-                            .addComponent(ircrearcuenta))))
+                        .addGap(245, 245, 245)
+                        .addComponent(ircrearcuenta)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(loginentrar_btn)
+                        .addGap(277, 277, 277))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(username_txtfield, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(contrasena_txtfield, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(username_lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(contrasena_lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(208, 208, 208))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(74, 74, 74)
+                .addGap(88, 88, 88)
                 .addComponent(login_lbl)
-                .addGap(63, 63, 63)
+                .addGap(43, 43, 43)
                 .addComponent(username_lbl)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(username_txtfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(contrasena_lbl)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(contrasena_txtfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(loginentrar_btn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(ircrearcuenta)
-                .addGap(40, 40, 40)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(Cerrarlogin)
                 .addGap(14, 14, 14))
         );

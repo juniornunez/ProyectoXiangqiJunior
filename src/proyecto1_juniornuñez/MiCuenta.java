@@ -2,6 +2,7 @@
 package proyecto1_juniornuñez;
 
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class MiCuenta extends javax.swing.JFrame {
@@ -9,7 +10,7 @@ public class MiCuenta extends javax.swing.JFrame {
     
     private ArrayList<DatosUser> listaUsuarios;
     private DatosUser usuarioActual;
-
+    
     
     public MiCuenta(ArrayList<DatosUser> listaUsuarios, DatosUser usuarioActual) {
         initComponents();
